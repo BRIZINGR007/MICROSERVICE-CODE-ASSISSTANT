@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  angular-frontend:
+    build:
+      context: ./app-002-angular-code-assistant
+      dockerfile: Dockerfile
+    container_name: angular-frontend
+    ports:
+      - "4200:4200"
+    depends_on:
+      - code-assistant
+    networks:
+      - app-network
+
+  code-assistant:
+    build:
+      context: ./app-002-code-assistant
+      dockerfile: Dockerfile
+    container_name: code-assistant
+    ports:
+      - "3080:3080"
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - DB_NAME=${DB_NAME}
+      - BASE_URL=http://ai-service:3081
+    depends_on:
+      - ai-service
+    networks:
+      - app-network
+
+  ai-service:
+    build:
+      context: ./app-002-ai-service
+      dockerfile: Dockerfile
+    container_name: ai-service
+    ports:
+      - "3081:3081"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
