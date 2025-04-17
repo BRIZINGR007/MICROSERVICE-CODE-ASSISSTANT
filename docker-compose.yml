@@ -1,39 +1,39 @@
-version: '3'
+version: '4'
 
 services:
   angular-frontend:
     build:
-      context: ./app-002-angular-code-assistant
+      context: ./angular-frontend
       dockerfile: Dockerfile
     container_name: angular-frontend
     ports:
       - "4200:4200"
     depends_on:
-      - code-assistant
+      - golang-service
     networks:
       - app-network
 
-  code-assistant:
+  golang-service:
     build:
-      context: ./app-002-code-assistant
+      context: ./golang-service
       dockerfile: Dockerfile
-    container_name: code-assistant
+    container_name: golang-service
     ports:
       - "3080:3080"
     environment:
       - MONGO_URI=${MONGO_URI}
       - DB_NAME=${DB_NAME}
-      - BASE_URL=http://ai-service:3081
+      - BASE_URL=http://python-service:3081
     depends_on:
-      - ai-service
+      - python-service
     networks:
       - app-network
 
-  ai-service:
+  python-service:
     build:
-      context: ./app-002-ai-service
+      context: ./python-service
       dockerfile: Dockerfile
-    container_name: ai-service
+    container_name: python-service
     ports:
       - "3081:3081"
     networks:

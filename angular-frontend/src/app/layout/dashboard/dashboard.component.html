@@ -1,0 +1,170 @@
+<div>
+    <app-header></app-header>
+    <div class="dashboard__container d-flex flex-column">
+        <div class="d-flex align-items-center justify-content-center mt-5">
+            @if (!syncYourCodeBaseClicked) {
+            <button (click)="syncYourCodeBase()" class="btn text-white bg-app-theme">Sync Your Code Base</button>
+            } @else {
+            <div class="card-body p-4">
+                <form [formGroup]="codebaseForm" (ngSubmit)="onSubmit()">
+                    <!-- CodeBase Name -->
+                    <div class="mb-3">
+                        <label for="codeBaseName" class="form-label">Codebase Name</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-card-text"></i>
+                            </span>
+                            <input type="text" class="form-control" formControlName="codeBaseName"
+                                placeholder="e.g., My Codebase"
+                                [ngClass]="{'is-invalid': submitted && f['codeBaseName'].errors}">
+                        </div>
+                        @if (submitted && f['codeBaseName'].errors) {
+                        <div class="invalid-feedback d-block">
+                            @if (f['codeBaseName'].errors['required']) {
+                            Codebase Name is required
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <!-- GitHub URL -->
+                    <div class="mb-3">
+                        <label for="githubUrl" class="form-label">GitHub URL</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-github"></i>
+                            </span>
+                            <input type="url" class="form-control" formControlName="gitHubURL"
+                                placeholder="https://github.com/user/repo"
+                                [ngClass]="{'is-invalid': submitted && f['gitHubURL'].errors}">
+                        </div>
+                        @if (submitted && f['gitHubURL'].errors) {
+                        <div class="invalid-feedback d-block">
+                            @if (f['gitHubURL'].errors['required']) {
+                            GitHub URL is required
+                            }
+                            @if (f['gitHubURL'].errors['pattern']) {
+                            Enter a valid GitHub URL
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Username -->
+                    <div class="mb-3">
+                        <label for="username" class="form-label">GitHub Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-person-circle"></i>
+                            </span>
+                            <input type="text" class="form-control" formControlName="username"
+                                placeholder="GitHub Username"
+                                [ngClass]="{'is-invalid': submitted && f['username'].errors}">
+                        </div>
+                        @if (submitted && f['username'].errors) {
+                        <div class="invalid-feedback d-block">
+                            @if (f['username'].errors['required']) {
+                            Username is required
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Token -->
+                    <div class="mb-3">
+                        <label for="token" class="form-label">GitHub Token</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-key"></i>
+                            </span>
+                            <input type="password" class="form-control" formControlName="token"
+                                placeholder="GitHub Token" [ngClass]="{'is-invalid': submitted && f['token'].errors}">
+                        </div>
+                        @if (submitted && f['token'].errors) {
+                        <div class="invalid-feedback d-block">
+                            @if (f['token'].errors['required']) {
+                            Token is required
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Branch -->
+                    <div class="mb-3">
+                        <label for="branch" class="form-label">Branch</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-git"></i>
+                            </span>
+                            <input type="text" class="form-control" formControlName="branch"
+                                placeholder="main or master"
+                                [ngClass]="{'is-invalid': submitted && f['branch'].errors}">
+                        </div>
+                        @if (submitted && f['branch'].errors) {
+                        <div class="invalid-feedback d-block">
+                            @if (f['branch'].errors['required']) {
+                            Branch name is required
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Folder Path -->
+                    <div class="mb-3">
+                        <label for="folderPath" class="form-label">Folder Path</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-folder"></i>
+                            </span>
+                            <input type="text" class="form-control" formControlName="folderPath"
+                                placeholder="/src/components"
+                                [ngClass]="{'is-invalid': submitted && f['folderPath'].errors}">
+                        </div>
+                        @if (submitted && f['folderPath'].errors) {
+                        <div class="invalid-feedback d-block">
+                            @if (f['folderPath'].errors['required']) {
+                            Folder path is required
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn text-white bg-app-theme">
+                            Save Codebase
+                        </button>
+                    </div>
+                </form>
+            </div>
+            }
+
+        </div>
+        <div class="d-flex mt-5">
+            <table class="table table-bordered shadow-lg rounded-4 overflow-hidden">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>CodeBaseName</th>
+                        <th>Status</th>
+                        <th>Go Chat</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle">
+                    @for (each_codebase of codebases; track each_codebase; let i = $index) {
+                    <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ each_codebase.codebase_name }}</td>
+                        <td>GENERATED</td>
+                        <td>
+                            <button class="btn" (click)="navigateToCodeBaseChat(each_codebase.codebase_id)">
+                                <i class="bi bi-arrow-right-square-fill text-bg-app-theme fs-1"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
