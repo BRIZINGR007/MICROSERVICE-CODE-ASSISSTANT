@@ -28,6 +28,7 @@ func userRoutes(baseServer *gin.RouterGroup) {
 	user.Use(middlewares.RestMiddleware)
 	user.GET("/validate-session", controllers.ValidateSession)
 	user.GET("/get-code-bases", controllers.GetAllCodeBases)
+	user.DELETE("/delete-codebase-context", controllers.DeleteCodeBaseContext)
 
 	//Authenticated Routes  ...
 	codeassist_base_path := "/code-assist"

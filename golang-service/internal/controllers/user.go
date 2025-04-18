@@ -105,6 +105,19 @@ func ValidateSession(c *gin.Context) {
 	setCookie(c, token)
 }
 
+func DeleteCodeBaseContext(c *gin.Context) {
+	context := helpers.GetGinContextHeadersStruct(c)
+	userId := context.UserId
+	codeBaseId := c.Query("codeBaseId")
+	err := services.DeleteCodeBaseContext(userId, codeBaseId)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Internal Servcer  Error."})
+		return
+	}
+	c.JSON(http.StatusAccepted, gin.H{"message": "Successfully Deleted .."})
+
+}
+
 func LogOut(c *gin.Context) {
 	c.SetSameSite(http.SameSiteNoneMode)
 	c.SetCookie("authorization", "", -1, "/", "", true, true)

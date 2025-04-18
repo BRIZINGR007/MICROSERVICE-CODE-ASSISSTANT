@@ -45,6 +45,22 @@ func GetCodeBaseData(email string) ([]models.CodeBaseData, error) {
 
 }
 
-func DeleteCodeBase(codeBaseId string) error {
-	
+func DeleteCodeBaseContext(userId string, codeBaseId string) error {
+	user_repo := repositories.GetUserRepository()
+	chat_repo := repositories.GetChatRepository()
+	codeassist_repo := repositories.GetCodeAssistRepository()
+	var err error
+	err = user_repo.DeleteCodeBaseIdFromUserMetaData(context.Background(), userId, codeBaseId)
+	if err != nil {
+		return fmt.Errorf("error in deleting the codedb context from user collection.")
+	}
+	err = chat_repo.DeleteChatsByCodeBaseId(context.Background(), codeBaseId)
+	if err != nil {
+		return fmt.Errorf("error in deleting chats .")
+	}
+	err = codeassist_repo.DeleteCodeContextByCodeBaseId(context.Background(), codeBaseId)
+	if err != nil {
+		return fmt.Errorf("error in deleting Code Context .")
+	}
+	return nil
 }

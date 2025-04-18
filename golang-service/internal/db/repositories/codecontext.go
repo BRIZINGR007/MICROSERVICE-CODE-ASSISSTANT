@@ -87,3 +87,14 @@ func (r *CodeContextRepository) CodeContextRetriever(
 
 	return codeContextData, nil
 }
+
+func (r *CodeContextRepository) DeleteCodeContextByCodeBaseId(ctx context.Context, codeBaseId string) error {
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+	filter := bson.M{"codebase_id": codeBaseId}
+	_, err := r.Collection.DeleteMany(ctx, filter)
+	if err != nil {
+		return err
+	}
+	return nil
+}

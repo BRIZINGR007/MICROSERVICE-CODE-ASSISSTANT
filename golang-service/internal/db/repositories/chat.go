@@ -47,8 +47,8 @@ func (r *ChatRepository) GetAllChats(ctx context.Context, userId string, codeBas
 	defer cancel()
 
 	filter := bson.M{
-		"user_id":      userId,
-		"code_base_id": codeBaseId,
+		"user_id":     userId,
+		"codebase_id": codeBaseId,
 	}
 
 	cursor, err := r.Collection.Find(ctx, filter)
@@ -69,7 +69,7 @@ func (r *ChatRepository) DeleteChatsByCodeBaseId(ctx context.Context, codeBaseId
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
-	filter := bson.M{"code_base_id": codeBaseId}
+	filter := bson.M{"codebase_id": codeBaseId}
 
 	_, err := r.Collection.DeleteMany(ctx, filter)
 	if err != nil {
