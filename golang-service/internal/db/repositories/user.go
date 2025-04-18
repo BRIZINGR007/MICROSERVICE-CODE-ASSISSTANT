@@ -84,3 +84,22 @@ func (r *UserRepository) AddCodeBaseData(ctx context.Context, email string, code
 
 	return nil
 }
+
+func (r *UserRepository) DeleteCodeBaseIdFromUserMetaData(ctx context.Context, userId string, codeBaseId string) error {
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+
+	filter := bson.M{"userid": userId}
+	update := bson.M{
+		"$pull": bson.M{
+			"codebasedata": bson.M{"codebase_id": codeBaseId},
+		},
+	}
+
+	_, err := r.Collection.UpdateOne(ctx, filter, update)
+	if err != nil {
+		return fmt.Errorf("failed to remove codebase_id from user metadata: %w", err)
+	}
+	return nil
+
+}

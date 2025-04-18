@@ -11,6 +11,7 @@ type CodeContextRepositoryInterface interface {
 	CodeContextIndexes(ctx context.Context) error
 	BulkInsertCodeContext(ctx context.Context, codeContexts *[]models.CodeContext) error
 	CodeContextRetriever(ctx context.Context, codeBaseId string, embedding []float32, excludeVectorIds []string) ([]models.CodeContext, error)
+	DeleteCodeContextByCodeBaseId(ctx context.Context, codeBaseId string) error
 }
 
 var _ CodeContextRepositoryInterface = (*repositories.CodeContextRepository)(nil)

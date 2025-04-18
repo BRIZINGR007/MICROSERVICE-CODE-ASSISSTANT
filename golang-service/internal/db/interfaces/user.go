@@ -11,6 +11,7 @@ type UserRepositoryInterface interface {
 	AddUser(ctx context.Context, user *models.User) error
 	GetUserByEmail(ctx context.Context, email string) (*models.User, error)
 	UserIndexes(ctx context.Context) error
+	DeleteCodeBaseIdFromUserMetaData(ctx context.Context, userId string, codeBaseId string) error
 }
 
 var _ UserRepositoryInterface = (*repositories.UserRepository)(nil)
