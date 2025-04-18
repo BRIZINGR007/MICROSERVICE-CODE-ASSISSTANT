@@ -44,3 +44,7 @@ func GetCodeBaseData(email string) ([]models.CodeBaseData, error) {
 	return cd, nil
 
 }
+
+func DeleteCodeBase(codeBaseId string) error {
+	
+}
