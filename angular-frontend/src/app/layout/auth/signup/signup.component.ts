@@ -23,6 +23,7 @@ export class SignupComponent {
     private toastr: ToastrService,
   ) {
     this.signUpForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(6)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
@@ -36,6 +37,7 @@ export class SignupComponent {
       return;
     }
     const payload = {
+      name: this.signUpForm.value.name,
       email: this.signUpForm.value.email,
       password: this.signUpForm.value.password,
     };

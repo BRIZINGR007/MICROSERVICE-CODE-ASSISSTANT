@@ -33,10 +33,11 @@ func SignUp(c *gin.Context) {
 		return
 	}
 	user := models.User{
-		UserID:   utils.GenerateUUID(),
-		Name:     input.Name,
-		Email:    input.Email,
-		Password: hashedPassword,
+		UserID:       utils.GenerateUUID(),
+		Name:         input.Name,
+		Email:        input.Email,
+		Password:     hashedPassword,
+		CodebaseData: []models.CodeBaseData{},
 	}
 	err = services.SaveUser(&user)
 	if err != nil {

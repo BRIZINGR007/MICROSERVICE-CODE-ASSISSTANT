@@ -61,7 +61,7 @@ func PrepareDataForCodeContext(filecontents *[]domain.FileContent, codeBaseId st
 }
 
 func CodeContextRecursiveRetriever(codeBaseId string, query string, accumulated []models.CodeContext, recurseCount int) ([]models.CodeContext, error) {
-	if recurseCount >= 5 {
+	if recurseCount >= 3 {
 		return accumulated, nil
 	}
 	repo := repositories.GetCodeAssistRepository()
@@ -82,7 +82,7 @@ func CodeContextRecursiveRetriever(codeBaseId string, query string, accumulated 
 		return nil, err
 	}
 	accumulated = append(accumulated, newContexts[0])
-	if len(accumulated) < 5 {
+	if len(accumulated) < 3 {
 		recurseCount += 1
 		return CodeContextRecursiveRetriever(codeBaseId, query, accumulated, recurseCount)
 	}

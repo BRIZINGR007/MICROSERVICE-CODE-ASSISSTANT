@@ -57,7 +57,7 @@ def download_model(url, output_path):
 if __name__ == "__main__":
     model_url = "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-IQ3_M.gguf"
     output_file = (
-        "bartowski/Llama-3.2-1B-Instruct-GGUF/Llama-3.2-1B-Instruct-IQ3_M.gguf"
+        "MaziyarPanahi/Llama-3.2-1B-Instruct-GGUF/Llama-3.2-1B-Instruct.Q8_0.gguf"
     )
 
     download_model(model_url, output_file)
