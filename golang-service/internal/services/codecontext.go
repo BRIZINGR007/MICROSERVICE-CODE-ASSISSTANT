@@ -65,10 +65,20 @@ func CodeContextRecursiveRetriever(codeBaseId string, query string, accumulated 
 		return accumulated, nil
 	}
 	repo := repositories.GetCodeAssistRepository()
-	embedding, err := utils.FetchEmbedding(query)
-	if err != nil {
-		log.Printf("failed to get embeddings for app-002-ai-service")
-		return nil, errors.New("failed to get embeddings for app-002-ai-service")
+	var embedding []float32
+	var err error
+
+	if recurseCount == 0 {
+		embedding, err = utils.FetchEmbedding(query)
+		if err != nil {
+			log.Printf("failed to get embeddings for app-002-ai-service")
+			return nil, errors.New("failed to get embeddings for app-002-ai-service")
+		}
+	} else {
+		if len(accumulated) == 0 {
+			return nil, errors.New("accumulated context is empty in recursive call")
+		}
+		embedding = accumulated[len(accumulated)-1].Embedding
 	}
 
 	var vectors_ids []string
