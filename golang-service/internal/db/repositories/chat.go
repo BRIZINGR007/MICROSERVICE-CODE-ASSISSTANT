@@ -64,3 +64,16 @@ func (r *ChatRepository) GetAllChats(ctx context.Context, userId string, codeBas
 
 	return chats, nil
 }
+
+func (r *ChatRepository) DeleteChatsByCodeBaseId(ctx context.Context, codeBaseId string) error {
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+
+	filter := bson.M{"code_base_id": codeBaseId}
+
+	_, err := r.Collection.DeleteMany(ctx, filter)
+	if err != nil {
+		return err
+	}
+	return nil
+}

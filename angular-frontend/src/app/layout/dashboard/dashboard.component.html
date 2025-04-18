@@ -145,8 +145,9 @@
                     <tr>
                         <th>#</th>
                         <th>CodeBaseName</th>
-                        <th>Status</th>
+                        <th>Branch</th>
                         <th>Go Chat</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody class="align-middle">
@@ -154,10 +155,15 @@
                     <tr>
                         <td>{{ i + 1 }}</td>
                         <td>{{ each_codebase.codebase_name }}</td>
-                        <td>GENERATED</td>
+                        <td>{{each_codebase.branch}}</td>
                         <td>
                             <button class="btn" (click)="navigateToCodeBaseChat(each_codebase.codebase_id)">
                                 <i class="bi bi-arrow-right-square-fill text-bg-app-theme fs-1"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn" (click)="navigateToCodeBaseChat(each_codebase.codebase_id)">
+                                <i class="bi bi-trash text-bg-app-theme fs-1"></i>
                             </button>
                         </td>
                     </tr>

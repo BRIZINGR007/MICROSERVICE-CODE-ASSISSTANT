@@ -70,6 +70,7 @@ func (r *CodeContextRepository) CodeContextRetriever(
 			{Key: "codebase_id", Value: 1},
 			{Key: "filePath", Value: 1},
 			{Key: "code", Value: 1},
+			{Key: "embedding", Value: 1},
 			{Key: "Score", Value: bson.M{"$meta": "vectorSearchScore"}},
 		}}},
 	}

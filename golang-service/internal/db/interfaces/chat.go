@@ -11,6 +11,7 @@ type ChatRepositoryInterface interface {
 	ChatIndexes(ctx context.Context) error
 	AddChat(ctx context.Context, chat *models.Chat) error
 	GetAllChats(ctx context.Context, userId string, codeBaseId string) ([]models.Chat, error)
+	DeleteChatsByCodeBaseId(ctx context.Context, codeBaseId string) error
 }
 
 var _ ChatRepositoryInterface = (*repositories.ChatRepository)(nil)
