@@ -157,13 +157,14 @@
                         <td>{{ each_codebase.codebase_name }}</td>
                         <td>{{each_codebase.branch}}</td>
                         <td>
-                            <button class="btn" (click)="navigateToCodeBaseChat(each_codebase.codebase_id)">
-                                <i class="bi bi-arrow-right-square-fill text-bg-app-theme fs-1"></i>
+                            <button class="btn"
+                                (click)="navigateToCodeBaseChat(each_codebase.codebase_id, each_codebase.codebase_name)">
+                                <i class="bi bi-arrow-right-square-fill text-bg-app-theme fs-3"></i>
                             </button>
                         </td>
                         <td>
-                            <button class="btn" (click)="navigateToCodeBaseChat(each_codebase.codebase_id)">
-                                <i class="bi bi-trash text-bg-app-theme fs-1"></i>
+                            <button class="btn" (click)="deleteCodeBaseContext(each_codebase.codebase_id)">
+                                <i class="bi bi-trash text-bg-app-theme fs-3"></i>
                             </button>
                         </td>
                     </tr>

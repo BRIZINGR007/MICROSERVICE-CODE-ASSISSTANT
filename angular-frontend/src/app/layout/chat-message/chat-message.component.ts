@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IChat } from '../../core/interfaces/chat.service.interface';
 import { ChatSkeletonComponent } from '../../shared/components/chat-skeleton/chat-skeleton.component';
 
@@ -10,5 +10,11 @@ import { ChatSkeletonComponent } from '../../shared/components/chat-skeleton/cha
 })
 export class ChatMessageComponent {
   @Input() chat!: IChat;
+  @Output() showRefernceTraversalEmitter = new EventEmitter<boolean>();
+
+
+  showRefernces() {
+    this.showRefernceTraversalEmitter.emit(true);
+  }
 
 }

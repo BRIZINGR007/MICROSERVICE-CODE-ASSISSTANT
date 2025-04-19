@@ -75,9 +75,25 @@ export class DashboardComponent implements OnInit {
       },
     })
   }
-  navigateToCodeBaseChat(codeBaseId: string) {
-    this.chatService.SetCodeBaseChatIdentifier(codeBaseId);
-    this.router.navigate(['/codebase-chat'])
+  navigateToCodeBaseChat(codeBaseId: string, codeBaseName: string) {
+    this.router.navigate(['/codebase-chat'], {
+      queryParams: {
+        codeBaseId: codeBaseId,
+        codeBaseName: codeBaseName
+      }
+    });
+  }
+
+  deleteCodeBaseContext(codeBaseId: string) {
+    this.dashBoardService.DeleteCodeBasdeContext(codeBaseId).subscribe({
+      next: () => {
+        this.toastr.success(`Code Base Deleted entirely  ...`)
+      },
+      error: (error) => {
+        console.log(error);
+        this.toastr.error('Error in deleting codeBase .');
+      }
+    })
   }
 
 }

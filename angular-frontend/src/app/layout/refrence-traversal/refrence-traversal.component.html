@@ -1,0 +1,30 @@
+@if(showReferencesTraversal){
+<div class="card h-100 border border-dark">
+    <div class="card-header bg-app-theme text-white d-flex justify-content-between">
+        <div>References Traversal</div>
+        <div class="cursor-pointer" (click)="showRefernces()">
+            <i class="bi bi-x-circle-fill"></i>
+        </div>
+    </div>
+    <div class="card-body  interface_body">
+        <div class="d-flex align-items-center overflow-auto">
+            <ng-container *ngFor="let ref of references; let i = index">
+                <!-- Node Box -->
+                <div class="p-3 m-2 border rounded text-center bg-light" style="min-width: 200px;">
+                    <strong>{{ ref.codebase_name }}</strong>
+                    <div class="text-muted" style="font-size: 0.9em;">{{ ref.filePath }}</div>
+                </div>
+
+                <!-- Arrow (except after last item) -->
+                <div *ngIf="i < references.length - 1" class="mx-2 text-primary">
+                    <i class="bi bi-arrow-right-circle" style="font-size: 1.5rem;"></i>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+} @else {
+<div class="vertical-text bg-app-theme text-white">
+    <div class="px-2 py-5 text-4xl">REFRENCES TRAVERSAL</div>
+</div>
+}
