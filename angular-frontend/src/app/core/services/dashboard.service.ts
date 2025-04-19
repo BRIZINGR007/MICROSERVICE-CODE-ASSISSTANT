@@ -31,6 +31,14 @@ export class DashboardService {
       catchError((error: HttpErrorResponse) => { throw error; })
     );
   }
+  DeleteCodeBasdeContext(codeBaseId: string): Observable<any> {
+    return this.httpClientService.delete(
+      `${this.CodeAssistantServiceEndPoint}/users/delete-codebase-context`,
+      { codeBaseId: codeBaseId },
+    ).pipe(
+      catchError((error: HttpErrorResponse) => { throw error; })
+    );
+  }
 
 
 

@@ -14,6 +14,9 @@
             <div class="border border-dark bg-light rounded p-2">
                 <small>{{chat.ai_answer}}</small>
             </div>
+            <div class="mt-1  justify-content-end">
+                <small class="btn btn-sm bg-app-theme rounded text-white" (click)="showRefernces()">References</small>
+            </div>
             }
             @if (!chat.ai_answer){
             <app-chat-skeleton></app-chat-skeleton>

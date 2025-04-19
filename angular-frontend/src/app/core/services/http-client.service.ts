@@ -35,4 +35,19 @@ export class HttpClientService {
       params: httpParams,
     });
   }
+
+  delete<T>(
+    url: string,
+    params?: any,
+    withCredentials: boolean = true
+  ): Observable<T> {
+    const httpParams = new HttpParams({
+      fromObject: params || {},
+    });
+    return this.http.delete<T>(url, {
+      withCredentials,
+      params: httpParams,
+    });
+  }
+
 }
